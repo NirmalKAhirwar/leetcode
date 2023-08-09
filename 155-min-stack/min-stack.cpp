@@ -1,33 +1,64 @@
 class MinStack {
     
-public:
-    int minEle = INT_MAX;
-    vector<int> v;
-    int index = 0;
-    MinStack() {
+// public:
+//     int minEle = INT_MAX;
+//     vector<int> v;
+//     int index = 0;
+//     MinStack() {
         
-    }
+//     }
     
+//     void push(int val) {
+//         this->minEle = min(minEle, val);
+//         this->v.push_back(val);
+//         this->index++;
+//     }
+    
+//     void pop() {
+//         this->v.pop_back();
+//         this->index--;
+//     }
+    
+//     int top() {
+//         auto t = this->v.back();
+//         return t;
+        
+//     }
+    
+//     int getMin() {
+//         this->minEle = *min_element(this->v.begin(), this->v.end());
+//         return this->minEle;
+//     }
+
+private:
+    stack<pair<int,int>>st;
+
+public:
+    MinStack() {
+    }
+
     void push(int val) {
-        this->minEle = min(minEle, val);
-        this->v.push_back(val);
-        this->index++;
+        if(st.empty()){
+            st.push(make_pair(val,val));
+        }else{
+            int t=st.top().second;
+            if(val<t){
+                t=val;
+            }
+            st.push(make_pair(val,t));
+        }
     }
     
     void pop() {
-        this->v.pop_back();
-        this->index--;
+        st.pop();
     }
     
     int top() {
-        auto t = this->v.back();
-        return t;
-        
+        return st.top().first;
     }
     
     int getMin() {
-        this->minEle = *min_element(this->v.begin(), this->v.end());
-        return this->minEle;
+        return  st.top().second;
     }
 };
 
